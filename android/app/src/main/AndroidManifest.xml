@@ -1,4 +1,48 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 1. Background Processing -->
+
+<!-- Allows the application to spin up a background task -->
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+<!-- CRITICAL FOR ANDROID 14+: Tells the OS that the background service is strictly playing music -->
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+
+<!-- Keeps the CPU alive so music doesn't stutter or freeze when the phone screen turns off -->
+<uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+<!-- 2. Hardware and Accessories -->
+
+<!-- Allows the app to connect to wireless Bluetooth headphones and speakers -->
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+<!-- 3. Network and Data (Highly Recommended) -->
+
+<!-- Needed to download online lyrics, fetch missing album cover art, or stream audio (Not entirely necessary at end of the day )-->
+<uses-permission android:name="android.permission.INTERNET" />
+
+<!-- Allows the app to check if the user is on Wi-Fi or Cellular data before loading heavy artwork (Not entirely necessary at end of the day )-->
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<!-- 4.Runtime Permissions -->
+
+<!-- Required to read local music files on Android 13 (API 33) and above -->
+<uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+<!-- Required to read local music files on Android 12 (API 32) and below -->
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+
+<!-- Required for Android 13+ to display the play/pause/skip card in the notification drawer -->
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+<!-- 5.Battery Optimization -->
+
+<!-- Allows you to prompt the user to ignore battery optimization rules for your app -->
+<uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+
+
+
     <application
         android:label="music_player"
         android:name="${applicationName}"
@@ -30,6 +74,17 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+            <service 
+    android:name="com.ryanheise.audioservice.AudioService"
+    android:foregroundServiceType="mediaPlayback"
+    android:exported="true"
+    tools:ignore="Instantiatable">
+    <intent-filter>
+        <action android:name="android.media.browse.MediaBrowserService" />
+    </intent-filter>
+</service>
+
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
