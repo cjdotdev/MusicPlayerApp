@@ -5,7 +5,7 @@ import "package:on_audio_query/on_audio_query.dart";
 
 part "music_modal.g.dart";
 
-@Collection(ignore: {'props'})
+@Collection(ignore: {'props','intToDurationTime'})
 class Song extends Equatable 
 {
     Id? id = Isar.autoIncrement;
@@ -13,7 +13,7 @@ class Song extends Equatable
     final String title;
     final String? artist;
     final String filePath ;
-    final Duration? duration;
+    final int duration;
     final DateTime dateAdded ;
     final double? filesize;
 
@@ -22,6 +22,7 @@ class Song extends Equatable
         required this.title,
         required this.filePath,
         this.artist,
+        required 
         this.duration,
         this.filesize,
     }) : dateAdded = DateTime.now(); // Expression used in Dart to assign a specific value to an attribute of a class on the fly during the creation of a specific instance 
@@ -39,14 +40,17 @@ class Song extends Equatable
           title : nativeSongModel.title,
           filePath: nativeSongModel.data,
           artist: nativeSongModel.artist ?? "Unknown artist",
-          duration: Duration(
-           minutes : (nativeSongModel.duration ?? 0) ~/ 60000, //Complex Mathematical Process used to turn the raw files duration into minutes and seconds
-           seconds : ((nativeSongModel.duration ?? 0) ~/ 1000) % 60 
-          ),
+          duration : (nativeSongModel.duration ?? 0),
           filesize: filesize 
       );
     }
-
+    Duration get intToDurationTime // Getter used to specifically change the type of the duration to Duration for better time management
+    {
+      return Duration(
+        minutes : (duration) ~/ 60000, 
+        seconds : ((duration) ~/ 1000) % 60 
+      );
+    }
 
     @override
     List<Object?> get props => [id,title,dateAdded];// Equatable getter used here to specify how songs should be compared between one another
