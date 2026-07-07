@@ -1,5 +1,6 @@
-enum SortOptions
-{
+// song_sort_options.dart
+
+enum SortOptions {
   recentlyAdded, 
-  alphabetical
-}
+  alphabetical,
+} // No semicolons, no wrapping class
