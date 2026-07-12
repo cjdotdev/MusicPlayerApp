@@ -15,16 +15,15 @@ class Song extends Equatable
     final String filePath ;
     final int duration;
     final DateTime dateAdded ;
-    final double? filesize;
+    final double? fileSize;
 
     Song({
         required this.systemId,
         required this.title,
         required this.filePath,
         this.artist,
-        required 
-        this.duration,
-        this.filesize,
+        required this.duration,
+        this.fileSize,
     }) : dateAdded = DateTime.now(); // Expression used in Dart to assign a specific value to an attribute of a class on the fly during the creation of a specific instance 
 
 
@@ -41,7 +40,7 @@ class Song extends Equatable
           filePath: nativeSongModel.data,
           artist: nativeSongModel.artist ?? "Unknown artist",
           duration : (nativeSongModel.duration ?? 0),
-          filesize: filesize 
+          fileSize: filesize 
       );
     }
     Duration get intToDurationTime // Getter used to specifically change the type of the duration to Duration for better time management

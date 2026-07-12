@@ -91,7 +91,7 @@ void _songSerialize(
   writer.writeDateTime(offsets[1], object.dateAdded);
   writer.writeLong(offsets[2], object.duration);
   writer.writeString(offsets[3], object.filePath);
-  writer.writeDouble(offsets[4], object.filesize);
+  writer.writeDouble(offsets[4], object.fileSize);
   writer.writeLong(offsets[5], object.hashCode);
   writer.writeBool(offsets[6], object.stringify);
   writer.writeString(offsets[7], object.systemId);
@@ -108,7 +108,7 @@ Song _songDeserialize(
     artist: reader.readStringOrNull(offsets[0]),
     duration: reader.readLong(offsets[2]),
     filePath: reader.readString(offsets[3]),
-    filesize: reader.readDoubleOrNull(offsets[4]),
+    fileSize: reader.readDoubleOrNull(offsets[4]),
     systemId: reader.readString(offsets[7]),
     title: reader.readString(offsets[8]),
   );
